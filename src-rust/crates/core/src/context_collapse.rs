@@ -5,7 +5,7 @@
 //!
 //! Gated behind `cached_microcompact` feature flag.
 
-use crate::types::{Message, Role};
+use crate::types::Message;
 use serde::{Deserialize, Serialize};
 
 /// Strategy for collapsing a conversation when it exceeds token limits.
@@ -93,6 +93,7 @@ pub fn collapse_context(
 }
 
 /// Drop oldest non-system messages until under token limit.
+#[cfg(feature = "cached_microcompact")]
 fn drop_oldest_messages(mut messages: Vec<Message>, max_tokens: u64) -> (Vec<Message>, usize) {
     let mut dropped = 0;
 
@@ -113,6 +114,7 @@ fn drop_oldest_messages(mut messages: Vec<Message>, max_tokens: u64) -> (Vec<Mes
 
 /// Summarize conversation by keeping first and last N messages.
 /// (Full summarization would require calling Claude, so this is a placeholder.)
+#[cfg(feature = "cached_microcompact")]
 fn summarize_messages(messages: Vec<Message>, _max_tokens: u64) -> (Vec<Message>, usize) {
     let initial_len = messages.len();
 

@@ -3,6 +3,8 @@
 //! Mirrors free-code's codex-client.ts: implements authorization code flow
 //! with PKCE to obtain OpenAI access tokens for Codex model access.
 
+#![allow(dead_code)] // OAuth functions are integrated via create_message_codex
+
 use anyhow::{anyhow, bail};
 use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine as _};
 use sha2::{Digest, Sha256};
